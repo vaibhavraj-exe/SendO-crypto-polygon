@@ -9,18 +9,11 @@
 
 <body style="background: #ffffff;">
     <div style="width: 40%; margin-left: 50%; margin-top: 50vh; transform: translate(-50%, -50%)">
-        <!-- <h1 class="p-5 ">Polygon Crypto Sender</h1> -->
         <h1 class="mb-20 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black text-center">SendO</h1>
-        <!-- <label for="toAddress">To Address:</label> -->
         <label for="toAddress" class="block mb-2 text-sm font-medium text-green-700 dark:text-gray-500">To Address:</label>
-        <!-- <input type="text" id="toAddress"> -->
         <input type="text" id="toAddress" class="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-green-100 dark:border-green-400" placeholder="Recipent's Address">
-        <!-- <label for="amount">Amount:</label> -->
         <label for="amount" class="block mb-2 text-sm font-medium text-green-700 dark:text-gray-500 mt-5">Amount:</label>
-        <!-- <input type="text" id="amount"> -->
         <input type="text" id="amount" class="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-green-100 dark:border-green-400" placeholder="Amount">
-
-        <!-- <button onclick="sendCrypto()">Send</button> -->
         <button style="margin-left: 50%; transform: translateX(-50%)" type="button" onclick="sendCrypto()" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 m-10">Send</button>
     </div>
 
@@ -29,7 +22,6 @@
         let web3;
 
         async function connectMetaMask() {
-            // Connect to MetaMask
             if (window.ethereum) {
                 web3 = new Web3(window.ethereum);
                 try {
@@ -50,19 +42,17 @@
 
             const toAddress = document.getElementById("toAddress").value;
             const amount = document.getElementById("amount").value;
-            const contractAddress = process.env.address; // Replace with your deployed contract address
-            const contractABI = process.env.contractABI; // Replace with your contract ABI
+            const contractAddress = process.env.address; 
+            const contractABI = process.env.contractABI; 
 
-            // Check if MetaMask is connected
+            
             if (!web3 || !web3.currentProvider || !web3.currentProvider.selectedAddress) {
                 console.error("MetaMask not connected");
                 return;
             }
 
-            // Create contract instance
             const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-            // Send transaction
             try {
                 await contract.methods.sendCrypto(toAddress).send({ from: web3.currentProvider.selectedAddress, value: amount });
                 console.log(`Sent ${amount} wei to ${toAddress}`);
