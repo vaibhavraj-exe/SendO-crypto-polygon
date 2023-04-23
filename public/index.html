@@ -47,29 +47,11 @@
         }
 
         async function sendCrypto() {
-            const contractABI_ = [
-                // Replace this with the actual ABI of your CryptoSender smart contract
-                // Example ABI:
-                {
-                    "constant": false,
-                    "inputs": [
-                        {
-                            "name": "to",
-                            "type": "address"
-                        }
-                    ],
-                    "name": "sendCrypto",
-                    "outputs": [],
-                    "payable": true,
-                    "stateMutability": "payable",
-                    "type": "function"
-                }
-            ];
 
             const toAddress = document.getElementById("toAddress").value;
             const amount = document.getElementById("amount").value;
-            const contractAddress = "0xE222b7f61593880644395ae504Ff13308Bb186cA"; // Replace with your deployed contract address
-            const contractABI = contractABI_; // Replace with your contract ABI
+            const contractAddress = process.env.address; // Replace with your deployed contract address
+            const contractABI = process.env.contractABI; // Replace with your contract ABI
 
             // Check if MetaMask is connected
             if (!web3 || !web3.currentProvider || !web3.currentProvider.selectedAddress) {
